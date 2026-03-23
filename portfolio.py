@@ -1,5 +1,4 @@
-python3 << 'EOF'
-content = """from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query
 from typing import Optional
 import requests
 from db import get_conn
@@ -105,7 +104,4 @@ async def portfolio_list(q: Optional[str] = Query(None), rows: int = Query(50, g
             urgency = "urgency-red" if days is not None and days <= 14 else "urgency-amber" if days is not None and days <= 45 else "urgency-green" if days is not None else ""
             result.append({"id": r["id"], "uprn": r["uprn"], "council": r["council"], "address": r["address"], "postcode": r["postcode"], "charge_type": r["charge_type"], "start_date": str(r["start_date"]) if r["start_date"] else None, "end_date": str(r["end_date"]) if r["end_date"] else None, "opportunity_end_date": str(r["opportunity_end_date"]) if r["opportunity_end_date"] else None, "cycle": r["cycle"], "cycle_start_date": str(r["cycle_start_date"]) if r["cycle_start_date"] else None, "cycle_end_date": str(r["cycle_end_date"]) if r["cycle_end_date"] else None, "days_remaining": r["days_remaining"], "pill_text": r["pill_text"], "pill_class": r["pill_class"], "days_to_end": days, "urgency_class": urgency, "priority": r["priority"], "next_action": r["next_action"], "next_class": r["next_class"], "gross_charge": float(r["gross_charge"]) if r["gross_charge"] else None, "estimated_saving": float(r["estimated_saving"]) if r["estimated_saving"] else None, "rv_approx": float(r["rv_approx"]) if r["rv_approx"] else None})
         return {"count": len(result), "rows": result}
-"""
-open('/opt/ratingedge/app/routes/portfolio.py', 'w').write(content.strip())
-print("Written OK")
-EOF
+
